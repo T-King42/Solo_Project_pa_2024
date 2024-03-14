@@ -1,0 +1,14 @@
+
+Name: Tyler King
+
+Stack: Python
+
+GitHub Repo link: https://github.com/T-King42/Solo_Project_pa_2024
+
+Project name: Yu-Gi-Base
+
+Project description: My project proposel is a web application that can keep track of my yu-gi-oh trading card collection and the decks that I build with them.
+
+MVP (Minimum Viable Product) features: Users should be able to add cards to the database. Using those cards users should be able to build decks of those cards. Users should be able to view decks created by other users. as well as edit and delete their own decks. 
+
+Bonus feature(s): Id like to add functianality using the public yu-gi-oh API to auto populate card information and images. Users should be able to draw test hands. Users should be able to add card art or use the original. 
