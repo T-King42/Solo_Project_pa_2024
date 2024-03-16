@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Anta&display=swap');
+
+/* utility */
+*{
+    font-family: "Anta", sans-serif;  
+    font-weight: 400;  
+    font-style: normal;
+}
+.cardimg{
+    height: 100px;
+}
+body{
+    background-image: url(clayton1.png);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-color: black;
+}
+/* Navigation */
+.navbar{
+    
+    background-color: black;
+    border-bottom: whitesmoke 1px solid;
+    
+}
+.welcome{
+    margin-left: 20px;
+    font-size: 3rem;
+}
+button.back{
+    font-size: 1.3rem;
+    text-shadow: black 2px 2px;
+    margin-right: 20px;
+    background-color: #fc131c;
+}
+.puzzle{
+    height: 40px;
+}
+/* Home */
+
+.card{
+    border-color: white;
+    background-color: black;
+}
+.topdeck{
+    padding: 20px;
+    text-align: center;
+    background-color: black ;
+    border: white solid 1px;
+    border-radius: 10px;
+}
+.deckbox{
+    height: 100px;
+}
+.deck{
+    flex: 0 1 calc(20% - 8px);
+    padding: 15px;
+}
+.topcard{
+    padding: 20px;
+    text-align: center;
+    background-color: black ;
+    border: white solid 1px;
+    border-radius: 10px;
+}
+.ycard{
+    flex: 0 1 calc(20% - 8px);
+    padding: 15px;
+}
+
+/* Dashboard */
+.mydecks{
+    flex: 7;
+    text-align: center;
+    padding:20px;
+    background-color: black;
+    border: white solid 1px;
+    border-radius: 10px;
+}
+.favorite_cards{
+    flex: 2;
+    padding: 20px;
+    text-align: center;
+    background-color: black ;
+    border: white solid 1px;
+    border-radius: 10px;
+}
+.dash{
+    gap: 20px;
+    align-items: baseline;
+}
+button.plusbutton{
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    border: white solid 1px;
+    background-color: #fc131c;
+    color: black;
+    border-radius: 999px;
+}
+/* New Deck */
+.editor{
+    padding: 20px;
+    text-align: center;
+    background-color: black ;
+    border: white solid 1px;
+    border-radius: 10px;
+}
+.yecard{
+    flex: 0 1 calc(10% - 8px);
+    padding: 15px;
+}
+.deck_name{
+    text-align: center;
+}
+button.confirm{
+    background-color: green;
+    color: white;
+}
+button.confirm:hover{
+    background-color: darkgreen;
+    border: white solid 1px;
+}
+/* card view */
+.card_view{
+    width: 550px;
+    padding: 20px;
+    background-color: black;
+    text-align: center;
+    border: white solid 1px;
+    border-radius: 10px;
+}
+img.card_hero{
+    height: 400px;
+}
+.card_info{
+    margin: 20px;
+    gap: 10px;
+    justify-content: center;
+    align-items: baseline;
+}
