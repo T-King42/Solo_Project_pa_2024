@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- FIX THE HREF BEFORE FINISHING -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type='text/css' href="{{url_for('static', filename='style.css')}}">
@@ -15,7 +14,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <div class="container-fluid d-flex">
-                <a class="navbar-brand" href="#">Yu-Gi-Base <img class='puzzle'
+                <a class="navbar-brand" href="{{url_for('go_home')}}">Yu-Gi-Base <img class='puzzle'
                         src="{{url_for('static',filename='mp1.png')}}" alt="the puzzle"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,9 +23,18 @@
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
+                        {%if session['is_logged']%}
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Login/Register</a>
+                            <a class="nav-link" aria-current="page" href="{{url_for('dashboard')}}">My Decks</a>
                         </li>
+                        <li class="nav-item">
+                            <a class='nav-link' aria-current="page" href="{{url_for('logout')}}">Logout</a>
+                        </li>
+                        {%else%}
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{{url_for('log')}}">Login/Register</a>
+                        </li>
+                        {%endif%}
                     </ul>
                 </div>
             </div>
@@ -37,71 +45,23 @@
         <div class="topdeck container mt-5">
             <h1>Top Decks</h1>
             <div class="decks d-flex justify-content-around flex-wrap">
+                {%for deck in top_decks%}
                 <div class="deck">
                     <img class="deckbox" src="{{url_for('static',filename='deckbox.webp')}}" alt="a deck box">
-                    <h5>Madolche</h5>
+                    <h5>{{deck.name}}</h5>
                 </div>
-                <div class="deck">
-                    <img class="deckbox" src="{{url_for('static',filename='deckbox.webp')}}" alt="a deck box">
-                    <h5>Sky Strikers</h5>
-                </div>
-                <div class="deck">
-                    <img class="deckbox" src="{{url_for('static',filename='deckbox.webp')}}" alt="a deck box">
-                    <h5>Heroes</h5>
-                </div>
-                <div class="deck">
-                    <img class="deckbox" src="{{url_for('static',filename='deckbox.webp')}}" alt="a deck box">
-                    <h5>Ghostrick</h5>
-                </div>
-                <div class="deck">
-                    <img class="deckbox" src="{{url_for('static',filename='deckbox.webp')}}" alt="a deck box">
-                    <h5>Spyral</h5>
-                </div>
-                <div class="deck">
-                    <img class="deckbox" src="{{url_for('static',filename='deckbox.webp')}}" alt="a deck box">
-                    <h5>Generaiders</h5>
-                </div>
-                <div class="deck">
-                    <img class="deckbox" src="{{url_for('static',filename='deckbox.webp')}}" alt="a deck box">
-                    <h5>Trickstar</h5>
-                </div>
-                <div class="deck">
-                    <img class="deckbox" src="{{url_for('static',filename='deckbox.webp')}}" alt="a deck box">
-                    <h5>Orcust</h5>
-                </div>
-                <div class="deck">
-                    <img class="deckbox" src="{{url_for('static',filename='deckbox.webp')}}" alt="a deck box">
-                    <h5>ABC</h5>
-                </div>
-                <div class="deck">
-                    <img class="deckbox" src="{{url_for('static',filename='deckbox.webp')}}" alt="a deck box">
-                    <h5>Spellbook Prophecy</h5>
-                </div>
+                {%endfor%}
             </div>
         </div>
         <div class="container topcard mt-5">
             <h1>Top Cards</h1>
             <div class="cards d-flex justify-content-around flex-wrap">
+                {%for card in top_cards%}
                 <div class="ycard">
-                    <img class='cardimg' src="{{url_for('static',filename='BEWD.jpg')}}" alt="The Blue Eyes White Dragon">
-                    <h5>Blue Eyes White Dragon</h5>
+                    <img class='cardimg' src="{{card.img}}" alt="{{card.name}}">
+                    <h5>{{card.card_name}}</h5>
                 </div>
-                <div class="ycard">
-                    <img class='cardimg' src="{{url_for('static',filename='BEWD.jpg')}}" alt="The Blue Eyes White Dragon">
-                    <h5>Blue Eyes White Dragon</h5>
-                </div>
-                <div class="ycard">
-                    <img class='cardimg' src="{{url_for('static',filename='BEWD.jpg')}}" alt="The Blue Eyes White Dragon">
-                    <h5>Blue Eyes White Dragon</h5>
-                </div>
-                <div class="ycard">
-                    <img class='cardimg' src="{{url_for('static',filename='BEWD.jpg')}}" alt="The Blue Eyes White Dragon">
-                    <h5>Blue Eyes White Dragon</h5>
-                </div>
-                <div class="ycard">
-                    <img class='cardimg' src="{{url_for('static',filename='BEWD.jpg')}}" alt="The Blue Eyes White Dragon">
-                    <h5>Blue Eyes White Dragon</h5>
-                </div>
+                {%endfor%}
             </div>
         </div>
     </div>

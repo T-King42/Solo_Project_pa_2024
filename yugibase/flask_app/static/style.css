@@ -9,11 +9,17 @@
 .cardimg{
     height: 100px;
 }
+.cardimg_edit{
+    height: 140px;
+}
 body{
     background-image: url(clayton1.png);
     background-repeat: no-repeat;
     background-position: center top;
     background-color: black;
+}
+.flash{
+    color: #fc131c;
 }
 /* Navigation */
 .navbar{
@@ -68,6 +74,10 @@ button.back{
 }
 
 /* Dashboard */
+.deck_link{
+    text-decoration: none;
+    color: white;
+}
 .mydecks{
     flex: 7;
     text-align: center;
@@ -87,6 +97,15 @@ button.back{
 .dash{
     gap: 20px;
     align-items: baseline;
+}
+a.plusbutton{
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    border: white solid 1px;
+    background-color: #fc131c;
+    color: black;
+    border-radius: 999px;
 }
 button.plusbutton{
     font-size: 1.2rem;
