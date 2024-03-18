@@ -125,7 +125,7 @@ def add_cards():
 
 @app.route('/test',methods=['GET'])
 def test():
-    Card.add_single_card('Raigeki')
+    Card.add_single_card('Ultimate Conductor Tyranno')
     return redirect('/home')
 
 

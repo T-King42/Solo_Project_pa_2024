@@ -71,7 +71,7 @@ class Deck:
                 cards_in_deck.append(card_info)
 
                 deck.cards_in_deck = cards_in_deck  
-                return deck
+            return deck
         else:
             print('No deck found with the given ID')
             return None

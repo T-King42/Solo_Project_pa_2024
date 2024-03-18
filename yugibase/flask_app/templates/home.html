@@ -58,7 +58,7 @@
             <div class="cards d-flex justify-content-around flex-wrap">
                 {%for card in top_cards%}
                 <div class="ycard">
-                    <img class='cardimg' src="{{card.img}}" alt="{{card.name}}">
+                    <img class='cardimg' src="{{url_for('static',filename=card.img)}}" alt="{{card.name}}">
                     <h5>{{card.card_name}}</h5>
                 </div>
                 {%endfor%}

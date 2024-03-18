@@ -23,13 +23,13 @@ class Card:
         image_url = card_data['card_images'][0]['image_url']
         card_name = card_data['name']
         # This method was the bane of my existence. Saves Image to server.
-        image_path = cls.save_image_locally(image_url,r'static\card_images',card_name)
+        image_path = cls.save_image_locally(image_url,'card_images/',card_name)
         # Check if atk or def is None
         atk = card_data.get('atk', None)
         defense = card_data.get('def', None)
         # prep data for injection into database
         sql_data = {
-            'card_name':card_data['card_name'],
+            'card_name':card_data['name'],
             'atk':atk,
             'def':defense,
             'effect':card_data['desc'],
@@ -59,12 +59,12 @@ class Card:
         response = requests.get(image_url)
         # check to see if download from server was successful
         if response.status_code == 200:
-            with open(f'flask_app\\'+ image_path, 'wb') as image_file:
+            with open(f'flask_app/static/'+ image_path, 'wb') as image_file:
                 image_file.write(response.content)
             print('image written to file')
             print(image_path)
             # return path for insertion in DB
-            return os.path.relpath(image_path, start='static')
+            return image_path
         else:
             print(f"Failed to download image from {image_url}. Status code: {response.status_code}")
             return None
