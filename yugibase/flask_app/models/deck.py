@@ -75,6 +75,13 @@ class Deck:
         else:
             print('No deck found with the given ID')
             return None
+    @classmethod
+    def delete_deck(cls,data):
+        query = '''DELETE FROM decks
+                    WHERE id = %(id)s'''
+        results = connectToMySQL('yugibase_schema').query_db(query,data)
+        return results
+
     @staticmethod
     def validate_deck(deck):
         is_valid=True

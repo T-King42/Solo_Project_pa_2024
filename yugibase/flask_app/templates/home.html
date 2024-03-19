@@ -47,8 +47,10 @@
             <div class="decks d-flex justify-content-around flex-wrap">
                 {%for deck in top_decks%}
                 <div class="deck">
-                    <img class="deckbox" src="{{url_for('static',filename='deckbox.webp')}}" alt="a deck box">
-                    <h5>{{deck.name}}</h5>
+                    <a href="/view_deck/{{deck.id}}" class="thumbnail">
+                        <img class="deckbox" src="{{url_for('static',filename='deckbox.webp')}}" alt="a deck box">
+                        <h5>{{deck.name}}</h5>
+                    </a>
                 </div>
                 {%endfor%}
             </div>
@@ -58,8 +60,32 @@
             <div class="cards d-flex justify-content-around flex-wrap">
                 {%for card in top_cards%}
                 <div class="ycard">
-                    <img class='cardimg' src="{{url_for('static',filename=card.img)}}" alt="{{card.name}}">
-                    <h5>{{card.card_name}}</h5>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#card_hero_modal_{{card.id}}" class="thumbnail">
+                        {%if card.img%}
+                        <img class='cardimg' src="{{url_for('static',filename=card.img)}}"
+                            alt="{{card.card_name}}">
+                        {%endif%}
+                        <h5>{{card.card_name}}</h5>
+                    </a>
+                </div>
+                <div class="modal fade" id="card_hero_modal_{{card.id}}" tabindex="-1" aria-labelledby="card_hero_modal_label" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="container mt-5">
+                                <div class="card_view">
+                                    <h2 class="name">{{card.card_name}}</h2>
+                                    <div class="d-flex card_info">
+                                        <h4>ATK: {{card.atk}}</h4>
+                                        <img class='card_hero' src="{{url_for('static', filename=card.img)}}" alt="{{card.card_name}}">
+                                        <h4>DEF: {{card.defense}}</h4>
+                                    </div>
+                                    <h4>Effect/Description:</h4>
+                                    <p class="effect">{{card.effect}}</p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 {%endfor%}
             </div>

@@ -139,6 +139,14 @@ button.confirm:hover{
     background-color: darkgreen;
     border: white solid 1px;
 }
+a.confirm{
+    background-color: green;
+    color: white;
+}
+a.confirm:hover{
+    background-color: darkgreen;
+    border: white solid 1px;
+}
 /* card view */
 .card_view{
     width: 550px;
@@ -156,4 +164,11 @@ img.card_hero{
     gap: 10px;
     justify-content: center;
     align-items: baseline;
+}
+.thumbnail{
+    text-decoration: none;
+    color: white;
+}
+a.add{
+    background-color: #005cda;
 }

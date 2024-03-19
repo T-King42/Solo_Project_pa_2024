@@ -14,3 +14,18 @@ class Card_in_deck():
                     VALUES (%(deck_id)s,%(card_id)s,%(quantity)s)'''
         result = connectToMySQL('yugibase_schema').query_db(query,data)
         return result
+    @classmethod
+    def delete_card_from_deck(cls,data):
+        if int(data['quantity']) > 1:
+            data['quantity'] = str(int(data['quantity']) - 1)
+            query = '''UPDATE decks_using_cards
+                        SET quantity = %(quantity)s
+                        WHERE deck_id = %(deck_id)s AND card_id = %(card_id)s'''
+            result = connectToMySQL('yugibase_schema').query_db(query,data)
+            return result
+        else:
+            query = '''DELETE FROM decks_using_cards
+                        WHERE deck_id = %(deck_id)s AND card_id = %(card_id)s'''
+            result = connectToMySQL('yugibase_schema').query_db(query,data)
+            return result
+        

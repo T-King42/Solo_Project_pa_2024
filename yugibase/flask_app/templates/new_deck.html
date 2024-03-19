@@ -15,7 +15,7 @@
         <div class="container d-flex">
 
             <div class="container-fluid d-flex">
-                <a class="navbar-brand" href="#">Yu-Gi-Base <img class='puzzle'
+                <a class="navbar-brand" href="{{url_for('go_home')}}">Yu-Gi-Base <img class='puzzle'
                         src="{{url_for('static',filename='mp1.png')}}" alt="the puzzle"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,15 +46,52 @@
         <div class="editor">
             <h2>Edit Deck</h2>
             <h4>{{deck.name}}</h4>
+            {% with messages = get_flashed_messages(category_filter=['api']) %}
+            {% if messages %}
+            {% for message in messages %}
+            <p class="flash">{{message}}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
             <div class="cards d-flex justify-content-around flex-wrap">
                 {% for card in deck.cards_in_deck %}
                 <div class="ycard">
-                    {% if card.img %}
-                    <img src="{{ url_for('static', filename=card.img) }}" class="cardimg_edit" alt="{{ card.name }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{card.name}}</h5>
-                        <p class="card-text"><small class="text-muted">Quantity: {{card.quantity}}</small></p>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#card_hero_modal_{{card.id}}" class="thumbnail">
+                        {% if card.img %}
+                        <img src="{{ url_for('static', filename=card.img) }}" class="cardimg_edit" alt="{{ card.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{card.name}}</h5>
+                            <p class="card-text"><small class="text-muted">Quantity: {{card.quantity}}</small></p>
+                        </div>
+                    </a>
+                </div>
+                <div class="modal fade" id="card_hero_modal_{{card.id}}" tabindex="-1" aria-labelledby="card_hero_modal_label" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="container mt-5">
+                                <div class="card_view">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <h2 class="name">{{card.card_name}}</h2>
+                                    <div class="d-flex card_info">
+                                        <h4>ATK: {{card.atk}}</h4>
+                                        {%if card.img%}
+                                        <img class='card_hero' src="{{url_for('static', filename=card.img)}}" alt="{{card.card_name}}">
+                                        {%endif%}
+                                        <h4>DEF: {{card.def}}</h4>
+                                    </div>
+                                    <h4>Effect/Description:</h4>
+                                    <p class="effect">{{card.effect}}</p>
+                                    <form action="{{url_for('remove_cards_from_deck')}}" method="post">
+                                        <input type="hidden" name="card_id" value="{{card.id}}">
+                                        <input type="hidden" name="deck_id" value="{{deck.id}}">
+                                        <input type="hidden" name="quantity" value="{{card.quantity}}">
+                                        <button class="btn btn-warning plusbutton" type="submit">Remove Card</button>
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
@@ -62,11 +99,15 @@
             
             <div class="d-flex justify-content-around">
                 <div class="plus">
-                    <a href="#" class="btn btn-danger plusbutton" data-bs-toggle="modal"
-                        data-bs-target="#add_card_modal">Add cards</a>
+                    <a href="#" class="btn btn-secondary plusbutton add" data-bs-toggle="modal"
+                        data-bs-target="#add_card_modal">Add Cards</a>
                 </div>
                 <div class="plus">
-                    <button class="btn btn-confirm plusbutton confirm">Confirm</button>
+                    <a href="#" class="btn btn-danger plusbutton" data-bs-toggle="modal"
+                        data-bs-target="#delete_deck_modal">Delete Deck</a>
+                </div>
+                <div class="plus">
+                    <a href='/dashboard' class="btn btn-confirm plusbutton confirm">Confirm</a>
                 </div>
             </div>
             </form>
@@ -100,8 +141,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning plusbutton notfound" data-bs-toggle="modal"
                         data-bs-target="#new_card_modal">Card Not Found</button>
-                    <button type="submit" class="btn btn-success plusbutton confirm" form="add_card_form">Add
-                        Card</button>
+                    <button type="submit" class="btn btn-success plusbutton confirm" form="add_card_form">Add Card</button>
                 </div>
             </div>
         </div>
@@ -114,7 +154,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" class="add_card_form" method="post" id="new_card_form">
+                    <form action="{{url_for('new_card')}}" class="add_card_form" method="post" id="new_card_form">
+                        <input type="hidden" name="deck_id" value="{{deck.id}}">
                         <label for="card_name" class="form-label">Card Name:</label>
                         <input type="text" name="card_name" class="form-control" placeholder="Please use exact name">
                     </form>
@@ -123,6 +164,26 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success plusbutton confirm" form="new_card_form">Add
                         Card</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete_deck_modal" tabindex="-1" aria-labelledby="delete_deck_model_label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="delete_deck_modal_label">Delete Deck</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{url_for('delete_deck')}}" class="delete_deck_form" method="post" id="delete_deck_form">
+                        <input type="hidden" name="deck_id" value="{{deck.id}}">
+                        <h4>Are you sure that you want to delete? THIS ACTION IS PERMANENT!</h4>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success plusbutton" form="delete_deck_form">Delete Deck</button>
                 </div>
             </div>
         </div>

@@ -15,7 +15,6 @@ def new_deck(deck_id):
     all_cards = Card.get_all_cards()
     user = User.get_user_by_id(data)
     deck = Deck.get_deck_with_cards(deck_data)
-    print(deck.cards_in_deck)
     return render_template('new_deck.html',user=user,deck=deck,all_cards=all_cards)
 @app.route('/add_deck',methods=['POST'])
 def add_deck():
@@ -36,3 +35,17 @@ def add_deck():
 @app.route('/edit_deck')
 def edit_deck():
     return render_template('edit_deck.html')
+@app.route('/delete_deck',methods=['POST'])
+def delete_deck():
+    data ={
+        'id':request.form['deck_id']
+    }
+    Deck.delete_deck(data)
+    return redirect('/dashboard')
+@app.route('/view_deck/<int:id>')
+def view_deck(id):
+    data = {
+        'id':id
+    }
+    deck = Deck.get_deck_with_cards(data)
+    return render_template('view_deck.html',deck=deck)

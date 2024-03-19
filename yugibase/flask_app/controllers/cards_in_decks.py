@@ -16,3 +16,16 @@ def add_cards():
     deck = Deck.get_deck_by_id(deck_data)
     Card_in_deck.add_card_to_deck(data)
     return redirect(f'/new_deck/{deck.id}')
+@app.route('/remove_cards_from_deck', methods=['POST'])
+def remove_cards_from_deck():
+    data = {
+        'deck_id':request.form['deck_id'],
+        'card_id':request.form['card_id'],
+        'quantity':request.form['quantity']
+    }
+    deck_data = {
+        'id':request.form['deck_id']
+    }
+    Card_in_deck.delete_card_from_deck(data)
+    deck = Deck.get_deck_by_id(deck_data)
+    return redirect(f'/new_deck/{deck.id}')
